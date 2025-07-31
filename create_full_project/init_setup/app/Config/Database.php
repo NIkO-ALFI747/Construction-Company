@@ -167,17 +167,12 @@ class Database extends Config
     {
         parent::__construct();
 
-        // --- DIAGNOSTIC: Check DBDriver value from getenv() ---
-        $dbDriverEnv = getenv('database.default.DBDriver');
-        error_log("DEBUG: database.default.DBDriver from getenv(): " . ($dbDriverEnv === false ? 'false (not set)' : (empty($dbDriverEnv) ? 'empty string' : $dbDriverEnv)));
-
         // Enable all error reporting and logging for this class
         error_reporting(E_ALL);
         ini_set('display_errors', 1);
         ini_set('log_errors', 1);
 
         // --- DEBUGGING DATABASE VALUES ---
-        $dsn_env = getenv('DATABASE_DSN');
         $hostname_env = getenv('DATABASE_HOSTNAME');
         $username_env = getenv('DATABASE_USERNAME');
         $password_env = getenv('DATABASE_PASSWORD');
@@ -186,11 +181,9 @@ class Database extends Config
         $port_env = getenv('DATABASE_PORT');
         $charset_env = getenv('DATABASE_CHARSET');
         $dbcollat_env = getenv('DATABASE_DBCOLLAT');
-        $swappre_env = getenv('DATABASE_SWAPPRE');
         $app_debug_env = getenv('APP_DEBUG');
 
         error_log("DEBUG DB: APP_DEBUG from getenv(): " . ($app_debug_env === false ? 'false' : $app_debug_env));
-        error_log("DEBUG DB: DSN from getenv(): " . ($dsn_env === false ? 'false' : $dsn_env));
         error_log("DEBUG DB: Hostname from getenv(): " . ($hostname_env === false ? 'false' : $hostname_env));
         error_log("DEBUG DB: Username from getenv(): " . ($username_env === false ? 'false' : $username_env));
         error_log("DEBUG DB: Password from getenv(): " . ($password_env === false ? 'false' : $password_env));
@@ -199,11 +192,10 @@ class Database extends Config
         error_log("DEBUG DB: Port from getenv(): " . ($port_env === false ? 'false' : $port_env));
         error_log("DEBUG DB: Charset from getenv(): " . ($charset_env === false ? 'false' : $charset_env));
         error_log("DEBUG DB: DBCollat from getenv(): " . ($dbcollat_env === false ? 'false' : $dbcollat_env));
-        error_log("DEBUG DB: SwapPre from getenv(): " . ($swappre_env === false ? 'false' : $swappre_env));
 
         // Assign values from environment variables in the constructor
         $this->default = [
-            'DSN'      => $dsn_env ?? 'mysql:host=localhost;dbname=ci4',
+            'DSN'      => '',
             'hostname' => $hostname_env ?? 'localhost',
             'username' => $username_env ?? 'root',
             'password' => $password_env ?? '',
@@ -214,7 +206,7 @@ class Database extends Config
             'DBDebug'  => (ENVIRONMENT === 'development' || ($app_debug_env === 'true')),
             'charset'  => $charset_env ?? 'utf8mb4',
             'DBCollat' => $dbcollat_env ?? 'utf8mb4_general_ci',
-            'swapPre'  => $swappre_env ?? '',
+            'swapPre'  => '',
             'encrypt'  => false,
             'compress' => false,
             'strictOn' => false,

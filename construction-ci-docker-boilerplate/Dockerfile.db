@@ -1,0 +1,16 @@
+# Dockerfile.db
+# Use a modern, lightweight base image and install the latest mariadb-client
+FROM debian:stable-slim
+
+# Install the mariadb-client package
+RUN apt-get update && apt-get install -y mariadb-client && rm -rf /var/lib/apt/lists/*
+
+# Copy the SQL dump and the initialization script
+COPY ./db_init/construction_db.sql ./
+COPY ./db_init/init.sh ./
+
+# Make the script executable
+RUN chmod +x init.sh
+
+# Set the entrypoint to the init script
+ENTRYPOINT ["./init.sh"]
