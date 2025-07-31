@@ -1,0 +1,37 @@
+# Use a PHP CLI base image. This comes with PHP, Composer, and many common PHP extensions
+FROM php:8.2-cli
+
+# Install system dependencies needed for the generator script:
+RUN apt-get update && apt-get install -y \
+    python3 \
+    python3-pip \
+    python3-venv \
+    unzip \
+    libmariadb-dev \
+    libicu-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+# Ensure pdo_mysql and intl extensions are enabled.
+RUN docker-php-ext-install pdo_mysql intl
+
+# Composer is often already installed or easily available on php:cli images.
+RUN which composer || curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+
+# Set the working directory inside the container for our script
+WORKDIR /app
+
+# Create a Python virtual environment
+ENV VIRTUAL_ENV=/opt/venv
+RUN python3 -m venv $VIRTUAL_ENV
+
+# Activate the virtual environment and install Python dependencies
+ENV PATH="$VIRTUAL_ENV/bin:$PATH"
+RUN pip install requests
+
+# --- MODIFIED: Copy the entire current directory (ci_init) into the container ---
+COPY . .
+# --- END MODIFIED ---
+
+# Define the command to run your Python script when the container starts
+# The script will now expect 'init_setup' to be a subdirectory of the /app
+CMD ["python3", "generate_boilerplate.py"]

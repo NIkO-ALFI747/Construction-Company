@@ -1,0 +1,134 @@
+# Git Ignore for CodeIgniter Docker Boilerplate
+
+#-------------------------
+# Environment Files
+# These should never be under version control, as it poses a security risk.
+#-------------------------
+# .env
+.vagrant
+Vagrantfile
+
+#-------------------------
+# Composer Dependencies
+#-------------------------
+/vendor/
+
+#-------------------------
+# Node.js Dependencies (if you add frontend tooling later)
+#-------------------------
+/node_modules/
+npm-debug.log
+yarn-error.log
+
+#-------------------------
+# Build Artifacts & Logs
+#-------------------------
+/writable/cache/*
+!/writable/cache/index.html
+
+/writable/logs/*
+!/writable/logs/index.html
+
+/writable/session/*
+!/writable/session/index.html
+
+/writable/uploads/*
+!/writable/uploads/index.html
+
+/writable/debugbar/*
+!/writable/debugbar/.gitkeep
+
+*.log
+php_errors.log # Explicitly added for clarity, though covered by *.log
+
+#-------------------------
+# Operating System Specific Junk Files
+#-------------------------
+# OS X
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+# Windows Installer files
+*.cab
+*.msi
+*.msm
+*.msp
+
+# Windows shortcuts
+*.lnk
+
+# Linux
+*~
+.directory # KDE directory preferences
+.Trash-* # Linux trash folder
+
+#-------------------------
+# User Guide Temp Files
+#-------------------------
+user_guide_src/build/*
+user_guide_src/cilexer/build/*
+user_guide_src/cilexer/dist/*
+user_guide_src/cilexer/pycilexer.egg-info/*
+
+#-------------------------
+# Test Files
+#-------------------------
+tests/coverage*
+phpunit # Don't save phpunit under version control.
+phpunit*.xml
+
+#-------------------------
+# IDE / Development Files
+#-------------------------
+# Jetbrains editors (IntelliJ, PhpStorm, etc)
+.idea/
+*.iml
+
+# Netbeans
+nbproject/
+build/ # Netbeans specific build folder
+nbbuild/
+dist/ # Netbeans specific dist folder
+nbdist/
+nbactions.xml
+nb-configuration.xml
+.nb-gradle/
+
+# Sublime Text
+*.tmlanguage.cache
+*.tmPreferences.cache
+*.stTheme.cache
+*.sublime-workspace
+*.sublime-project
+.phpintel
+
+# Visual Studio Code
+.vscode/
+
+# phpenv local config
+.php-version
+
+# Modules Testing
+_modules/*
+
+#-------------------------
+# Docker Specific (already in .dockerignore, but good to have here too for clarity)
+#-------------------------
+# Dockerfile.generator # The generator Dockerfile itself
+# codeigniter-docker-boilerplate.zip # The generated output zip
+# construction_db.sql # The input SQL file, if you don't want to commit it
+
+#-------------------------
+# Application Specific (usually for user uploads etc.)
+#-------------------------
+/public/uploads/ # Example for user uploads

@@ -1,0 +1,37 @@
+/*
+Like it if you like it :) Thank you 
+Best viewed in fullscreen:  https://codepen.io/nocni_sovac/full/BaNOmNv
+Same thing with CSS Grid : https://codepen.io/nocni_sovac/details/PoqBBjv
+*/
+
+.teaser-container {
+	padding: 5%;
+	display: flex;       
+	flex-flow: row wrap; 
+}
+.container-inner { 
+	display: flex;
+	flex-flow: column;
+	padding:10px;
+}
+.single-inner {
+	flex-grow: 1;
+	display: flex;        
+	flex-flow: column;  
+	background: #eaeaea;
+	box-shadow: 8px 8px 22px #c5c5c5, -8px -8px 22px #ffffff;
+	padding: 45px;
+	border-radius:5px;
+}
+.teaser-text {
+	margin-bottom:80px;
+}
+.teaser-button {
+	margin-top: auto;
+	background: linear-gradient(to top, #65b8f0, #4e65c8);
+	color: #f0f0f0;
+	border: transparent;
+	border-radius: 5px;
+	padding: 5px;
+	margin-bottom: 30px;
+}

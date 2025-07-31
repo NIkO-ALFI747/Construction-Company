@@ -1,0 +1,43 @@
+services:
+  web:
+    build:
+      context: . # Build context is the root of the extracted boilerplate
+      # no_cache: true # Remove this for faster builds once stable
+    ports:
+      - "8080:80"
+    env_file:
+      - ./.env # .env is at the root of the extracted boilerplate
+    depends_on:
+      - db
+    volumes:
+      # Mount the nested CodeIgniter application to /var/www/html in the container
+      - ./:/var/www/html
+
+  db:
+    image: mysql:8.0
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpass
+      MYSQL_DATABASE: construction_db
+      MYSQL_USER: user
+      MYSQL_PASSWORD: pass
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+      # db_init is at the root of the extracted boilerplate
+      - ./db_init/construction_db.sql:/docker-entrypoint-initdb.d/construction_db.sql:ro # For automatic SQL import
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    restart: unless-stopped
+    ports:
+      - "8081:80"
+    environment:
+      PMA_HOST: db
+      MYSQL_ROOT_PASSWORD: rootpass
+    depends_on:
+      - db
+
+volumes:
+  db_data:
